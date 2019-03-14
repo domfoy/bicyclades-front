@@ -1,28 +1,41 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+
 import './App.css';
+import AsideBoard from './aside-board';
+import MainBoard from './main-board';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className="App" ref={this.initGameCanvas}>
+        <AsideBoard />
+        <MainBoard />
       </div>
     );
   }
+
+  initGameCanvas = (rawDiv) => {
+    this.gameCanvas = rawDiv;
+  }
+
+  componentDidMount() {
+    const app = this.props.app;
+
+    this.gameCanvas.appendChild(app.view);
+    app.renderer.backgroundColor = 0x061639;
+    app.start();
+  }
+
+  componentWillUnmount() {
+    this.props.app.stop();
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    app: state.app
+  }
+}
+
+export default connect(mapStateToProps)(App);
