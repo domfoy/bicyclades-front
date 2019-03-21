@@ -1,0 +1,91 @@
+{
+  "options": {
+    "objc_class_prefix": "HLW"
+  },
+  "nested": {
+    "bicyclade": {
+      "nested": {
+        "BycServer": {
+          "methods": {
+            "Connect": {
+              "requestType": "Connection",
+              "responseType": "Game"
+            },
+            "ExecuteAction": {
+              "requestType": "ActionList",
+              "responseType": "Rstatus"
+            }
+          }
+        },
+        "ClientServer": {
+          "methods": {
+            "Stream": {
+              "requestType": "Action",
+              "responseType": "Rstatus"
+            }
+          }
+        },
+        "Connection": {
+          "fields": {
+            "ip": {
+              "type": "string",
+              "id": 1
+            },
+            "port": {
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "Action": {
+          "fields": {
+            "message": {
+              "type": "string",
+              "id": 1
+            },
+            "valeur": {
+              "type": "int32",
+              "id": 2
+            }
+          }
+        },
+        "ActionList": {
+          "fields": {
+            "action": {
+              "rule": "repeated",
+              "type": "Action",
+              "id": 1
+            }
+          }
+        },
+        "Rstatus": {
+          "fields": {
+            "status": {
+              "type": "Status",
+              "id": 1
+            }
+          },
+          "nested": {
+            "Status": {
+              "values": {
+                "OK": 0,
+                "KO": 1
+              }
+            }
+          }
+        },
+        "Game": {
+          "fields": {
+            "todo": {
+              "type": "string",
+              "id": 1
+            }
+          }
+        },
+        "Player": {
+          "fields": {}
+        }
+      }
+    }
+  }
+}
