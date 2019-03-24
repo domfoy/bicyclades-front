@@ -5,6 +5,7 @@ import './index.css';
 import store from './store';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import _ from 'lodash';
 
 import protobuf from 'protobufjs';
 
@@ -52,7 +53,12 @@ function send(payload) {
 
 socket.onmessage = function(evt) {
     try {
-      const buffer = new Uint8Array(evt.data);
+      let buffer;
+      if (_.isString(evt.data)) {
+        buffer = new TextEncoder().encode(evt.data);
+      } else {
+        buffer = new Uint8Array(evt.data);
+      }
       const message = Action.decode(buffer);
       const object = Action.toObject(message, {
         enums: String,  // enums as string names
