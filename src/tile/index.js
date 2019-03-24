@@ -12,13 +12,15 @@ class Tile extends Component {
     const {
       app,
       x,
-      y
+      y,
+      size
     } = this.props;
 
     const tile = new Pixi.Graphics();
 
-    tile.beginFill(0xFF0000);
-    tile.drawCircle(0, 0, 32);
+    tile.beginFill(0xAAEEEF);
+    tile.drawCircle(0, 0, size / 2);
+    tile.alpha = 0.1;
     tile.endFill();
     tile.x = x;
     tile.y = y;
