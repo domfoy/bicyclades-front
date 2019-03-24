@@ -16,7 +16,12 @@ class OfferingMarkerStack extends Component {
   render() {
     return (
       <div>
-        {markerSpots.map(spot => <MarkerSpot id={spot.id} key={spot.id.toString()} y={50 * spot.id - 50 + 7} />)}
+        {markerSpots.map(spot => <MarkerSpot
+          id={spot.id}
+          key={spot.id.toString()}
+          x={this.props.x + this.props.width / 2}
+          y={this.props.y + (this.props.height / 5) * spot.id - (this.props.height / 10)} 
+        />)}
       </div>
     )
   }
@@ -27,16 +32,12 @@ class OfferingMarkerStack extends Component {
 
     const markerContainer = new Pixi.Container();
     markerContainer.name = 'markerContainer';
-    markerContainer.position = {
-      x: this.props.x,
-      y: this.props.y
-    };
 
     const stack = new Pixi.Graphics();
     stack.name = 'stack';
 
     stack.beginFill(0x333332);
-    stack.drawRoundedRect(0, 0, 50, 250, 10);
+    stack.drawRoundedRect(this.props.x, this.props.y, this.props.width, this.props.height, 10);
     stack.endFill();
     markerContainer.addChild(stack);
     app.stage.addChild(markerContainer);

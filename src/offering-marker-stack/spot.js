@@ -15,8 +15,9 @@ class MarkerSpot extends Component {
     const app = this.props.app;
     const id = this.props.id;
 
-    const spotText = new Pixi.Text(`${id}`,{fontFamily : 'Arial', fontSize: 30, fill : 0xaa1010, align : 'center'});
-    spotText.x = 19;
+    const spotText = new Pixi.Text(`${id}`, {fontFamily : 'Arial', fontSize: 30, fill : 0xaa1010, align : 'center'});
+    spotText.anchor.set(0.5, 0.5);
+    spotText.x = this.props.x;
     spotText.y = this.props.y;
     const markerContainer = app.stage.getChildByName('markerContainer');
     markerContainer.addChild(spotText);

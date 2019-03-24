@@ -3,14 +3,14 @@ import {connect} from 'react-redux';
 
 import * as Pixi from 'pixi.js';
 
-import OfferingMarkerStack from '../offering-marker-stack';
+import UpperAsideBoard from '../upper-aside-board';
 import Gods from '../god';
 
 class AsideBoard extends Component {
   render() {
     return (
       <div>
-        <OfferingMarkerStack
+        <UpperAsideBoard
           x={this.padding}
           y={this.padding}
           width={this.contentWidth}
@@ -47,8 +47,6 @@ class AsideBoard extends Component {
     asideBoard.drawRoundedRect(5, 5, asideContainer._width - 10, asideContainer._height - 10, 10);
     asideBoard.endFill();
     asideContainer.addChild(asideBoard);
-
-
 
     app.stage.addChild(asideContainer);
   }
