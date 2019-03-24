@@ -13,6 +13,7 @@ for (let i = 1; i <= 10; i++) {
 class GodCard extends Component {
   render() {
     const self = this;
+    const tokenSize = Math.min(this.contentHeight / 3, this.contentWidth / 10);
 
     return (
       <div>
@@ -20,9 +21,9 @@ class GodCard extends Component {
           key={spot.toString()}
           id={spot}
           godId={this.god.id}
-          x={this.padding + (spot - 1) * (this.contentWidth / 10) + (this.contentWidth / 20)}
-          y={this.padding + this.padding}
-          size = {this.contentWidth / 10 - 5}
+          x={this.padding + (spot - 1) * tokenSize + tokenSize / 2}
+          y={this.padding + tokenSize / 2}
+          size = {tokenSize}
           />)
         }
       </div>

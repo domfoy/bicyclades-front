@@ -30,6 +30,7 @@ class App extends Component {
     this.gameCanvas = rawDiv;
     this.gameCanvas.appendChild(app.view);
     app.renderer.backgroundColor = 0x014055;
+    app.renderer.antialias = true;
     app.start();
   }
 
