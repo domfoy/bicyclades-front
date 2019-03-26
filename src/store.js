@@ -1,7 +1,7 @@
 import {createStore} from 'redux';
-import reducers from './reducers';
-
 import * as Pixi from 'pixi.js';
+
+import reducers from './reducers';
 
 const MIN_WIDTH = 200;
 const MIN_HEIGHT = 150;
@@ -18,6 +18,16 @@ const initialState = {
     width: window.innerWidth < MIN_WIDTH ? MIN_WIDTH : window.innerWidth,
     height: window.innerHeight < MIN_HEIGHT ? MIN_HEIGHT : window.innerHeight
   }),
+  isles: [
+    {
+      player: null,
+      tiles: [
+        [1, 2],
+        [2, 3],
+        [3, 4]
+      ]
+    }
+  ],
   gods: [
     {
       id: 1,
@@ -43,7 +53,7 @@ const initialState = {
 };
 
 export default createStore(
-    reducers,
-    initialState,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  reducers,
+  initialState,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() // eslint-disable-line
 );

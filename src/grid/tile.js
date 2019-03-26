@@ -1,13 +1,10 @@
 import {Component} from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import * as Pixi from 'pixi.js';
 
 class Tile extends Component {
-  render() {
-    return null;
-  }
-
   componentDidMount() {
     const {
       app,
@@ -26,11 +23,20 @@ class Tile extends Component {
     tile.y = y;
     app.stage.addChild(tile);
   }
-}
-const mapStateToProps = (state) => {
-  return {
-    app: state.app
+
+  render() {
+    return null;
   }
 }
+Tile.propTypes = {
+  app: PropTypes.object.isRequired,
+  size: PropTypes.number.isRequired,
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
+};
+
+const mapStateToProps = state => ({
+  app: state.app,
+});
 
 export default connect(mapStateToProps)(Tile);

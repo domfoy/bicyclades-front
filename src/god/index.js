@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import * as Pixi from 'pixi.js';
@@ -6,26 +7,10 @@ import * as Pixi from 'pixi.js';
 import GodCard from './god';
 
 class Gods extends Component {
-  render() {
-    return (
-      <div>
-        {this.props.gods.map(god => <GodCard
-          key={god.id.toString()}
-          id={god.id}
-          x={0}
-          y={(this.props.height / 5) * (god.id - 1)}
-          width={this.props.width}
-          height={this.props.height / 5}
-          />)
-        }
-      </div>
-    )
-  }
-
   constructor(props) {
     super(props);
 
-    const app = this.props.app;
+    const {app} = this.props;
     const asideContainer = app.stage
       .getChildByName('asideContainer');
 
@@ -35,13 +20,38 @@ class Gods extends Component {
     godsContainer.y = props.y;
     asideContainer.addChild(godsContainer);
   }
-}
 
-const mapStateToProps = (state) => {
-  return {
-    app: state.app,
-    gods: state.gods
+  render() {
+    const {gods, height, width} = this.props;
+    return (
+      <div>
+        {gods.map(god => (
+          <GodCard
+            key={god.id.toString()}
+            id={god.id}
+            x={0}
+            y={(height / 5) * (god.id - 1)}
+            width={width}
+            height={height / 5}
+          />
+        ))
+        }
+      </div>
+    );
   }
 }
+Gods.propTypes = {
+  app: PropTypes.object.isRequired,
+  gods: PropTypes.array.isRequired,
+  height: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
+};
+
+const mapStateToProps = state => ({
+  app: state.app,
+  gods: state.gods
+});
 
 export default connect(mapStateToProps)(Gods);
