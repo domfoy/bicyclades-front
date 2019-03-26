@@ -28,8 +28,7 @@ function getTileCoord({
   };
 }
 
-function computeTiles(x, y, width, height) {
-  const tileSize = getTileSize(width, height);
+function computeTiles(x, y, width, tileSize) {
   const tiles = [];
 
   for (let i = 1; i <= rowCount; i++) {
@@ -39,8 +38,8 @@ function computeTiles(x, y, width, height) {
       const {x: tileX, y: tileY} = getTileCoord({
         i,
         j,
-        tileSize,
         width,
+        tileSize,
         x,
         y,
       });
@@ -49,7 +48,6 @@ function computeTiles(x, y, width, height) {
         y: tileY,
         i,
         j,
-        tileSize
       });
     }
   }
@@ -57,31 +55,34 @@ function computeTiles(x, y, width, height) {
   return tiles;
 }
 
-function getAugmentedTile({tileSize, width, x, y}, [i, j]) {
-  const {x: tileX, y: tileY} = getTileCoord({
-    i,
-    j,
-    tileSize,
-    width,
-    x,
-    y,
-  });
+function getAugmentedTile({tiles}, rawTile) {
+  const [i, j] = rawTile;
+  const tile = _.find(tiles, {i, j});
 
   return {
     raw: [i, j],
-    x: tileX,
-    y: tileY
+    x: tile.x,
+    y: tile.y
   };
 }
 
-function computeIsles(x, y, width, height, rawIsles) {
+// function getNeighbourhoods(tiles) {
+//   return _.map(tiles, tile => {
+//     const neighbours = _.filter(tiles, other => {
+//       const isSelf = (other[0] === tile[0] && other[1] === tile[1]);
+//       const isNeighbour = other[];
+//       return !isSelf && isNeighbour;
+//     })
+//   });
+// }
+
+function computeIsles(tiles, rawIsles) {
   const isles = [];
-  const tileSize = getTileSize(width, height);
 
   for (const rawIsle of rawIsles) {
-    const tiles = rawIsle.tiles;
+    // const neighbouringCouples = getNeighbourhoods(tiles);
 
-    const augmentedTiles = _.map(tiles, getAugmentedTile.bind({tileSize, x, y, width}));
+    const augmentedTiles = _.map(rawIsle.tiles, getAugmentedTile.bind(null, {tiles}));
 
     const isle = Object.assign({}, rawIsle, {
       tiles: augmentedTiles,
@@ -94,11 +95,13 @@ function computeIsles(x, y, width, height, rawIsles) {
 }
 
 export default function computeGrid(x, y, width, height, rawIsles) {
-  const tiles = computeTiles(x, y, width, height);
-  const isles = computeIsles(x, y, width, height, rawIsles);
+  const tileSize = getTileSize(width, height);
+  const tiles = computeTiles(x, y, width, tileSize);
+  const isles = computeIsles(tiles, rawIsles);
 
   return {
     isles,
-    tiles
+    tiles,
+    tileSize
   };
 }

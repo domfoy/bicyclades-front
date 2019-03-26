@@ -8,18 +8,19 @@ class Isle extends Component {
   componentDidMount() {
     const {
       app,
-      isle
+      isle,
+      size
     } = this.props;
 
-    const isleEllipse = new PIXI.Ellipse();
+    const isleGraph = new Pixi.Graphics();
 
-    tile.beginFill(0xAAEEEF);
-    tile.drawCircle(0, 0, size / 2);
-    tile.alpha = 0.1;
-    tile.endFill();
-    tile.x = x;
-    tile.y = y;
-    app.stage.addChild(tile);
+    isleGraph.beginFill(0xAA00EF);
+
+    for (const tile of isle.tiles) {
+      isleGraph.drawCircle(tile.x, tile.y, size / 2);
+    }
+    isleGraph.endFill();
+    app.stage.addChild(isleGraph);
   }
 
   render() {
@@ -29,6 +30,7 @@ class Isle extends Component {
 Isle.propTypes = {
   app: PropTypes.object.isRequired,
   isle: PropTypes.object.isRequired,
+  size: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = state => ({

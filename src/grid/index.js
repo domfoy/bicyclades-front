@@ -12,32 +12,34 @@ class Grid extends Component {
 
     this.padding = 20;
     const {x, y, width, height} = props;
-    const {tiles, isles} = computeGrid(
+    const {tiles, isles, tileSize} = computeGrid(
       x + this.padding, y + this.padding,
       width - 2 * this.padding,
       height - 2 * this.padding,
       props.isles
     );
 
+    this.tileSize = tileSize;
     this.tiles = tiles;
     this.isles = isles;
   }
 
   render() {
-    const tiles = this.tiles.map(({x, y, i, j, tileSize: size}, index) => (
+    const tiles = this.tiles.map(({x, y, i, j}, index) => (
       <Tile
         key={index.toString()}
         x={x}
         y={y}
         i={i}
         j={j}
-        size={size}
+        size={this.tileSize}
       />
     ));
     const isles = this.isles.map((isle, index) => (
       <Isle
         key={index.toString()}
         isle={isle}
+        size={this.tileSize}
       />
     ));
 
@@ -50,7 +52,7 @@ class Grid extends Component {
   }
 }
 Grid.propTypes = {
-  isles: PropTypes.object.isRequired,
+  isles: PropTypes.array.isRequired,
   height: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
   x: PropTypes.number.isRequired,
