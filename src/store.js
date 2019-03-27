@@ -1,23 +1,43 @@
 import {createStore} from 'redux';
 import * as Pixi from 'pixi.js';
 
+
+import {
+  COLOUR,
+  GOD,
+  MIN_HEIGHT,
+  MIN_WIDTH,
+  TURN_STEP,
+} from './constants';
 import reducers from './reducers';
-
-const MIN_WIDTH = 200;
-const MIN_HEIGHT = 150;
-
-const GOD_LIST = [
-  'APPOLO',
-  'ATHENA',
-  'POSEIDON',
-  'ZEUS'
-];
 
 const initialState = {
   app: new Pixi.Application({
     width: window.innerWidth < MIN_WIDTH ? MIN_WIDTH : window.innerWidth,
     height: window.innerHeight < MIN_HEIGHT ? MIN_HEIGHT : window.innerHeight
   }),
+  turn: {
+    colour: COLOUR.RED,
+    step: TURN_STEP,
+    id: 1
+  },
+  offerings: [
+    {
+      colour: COLOUR.RED,
+      id: 1,
+      order: 1
+    },
+    {
+      colour: COLOUR.BLUE,
+      id: 1,
+      order: 2
+    },
+    {
+      colour: COLOUR.YELLOW,
+      id: 1,
+      order: 3
+    }
+  ],
   isles: [
     {
       player: null,
@@ -80,23 +100,27 @@ const initialState = {
   gods: [
     {
       id: 1,
-      type: GOD_LIST[0]
+      position: 1,
+      type: GOD.ARES
     },
     {
       id: 2,
-      type: GOD_LIST[1]
+      position: 2,
+      type: GOD.ATHENA
     },
     {
       id: 3,
-      type: GOD_LIST[3]
+      position: 3,
+      type: GOD.POSEIDON
     },
     {
       id: 4,
-      type: GOD_LIST[4]
+      type: GOD.ZEUS
     },
     {
       id: 5,
-      type: 'APOLLO'
+      position: 4,
+      type: GOD.APPOLLO
     }
   ]
 };
