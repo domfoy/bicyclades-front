@@ -1,8 +1,9 @@
 import {Component} from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 
 import * as Pixi from 'pixi.js';
+
+import {withPixiApp} from '../context';
 
 class MarkerSpot extends Component {
   constructor(props) {
@@ -38,8 +39,5 @@ MarkerSpot.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
 };
-const mapStateToProps = state => ({
-  app: state.app
-});
 
-export default connect(mapStateToProps)(MarkerSpot);
+export default withPixiApp(MarkerSpot);

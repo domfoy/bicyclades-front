@@ -66,16 +66,6 @@ function getAugmentedTile({tiles}, rawTile) {
   };
 }
 
-// function getNeighbourhoods(tiles) {
-//   return _.map(tiles, tile => {
-//     const neighbours = _.filter(tiles, other => {
-//       const isSelf = (other[0] === tile[0] && other[1] === tile[1]);
-//       const isNeighbour = other[];
-//       return !isSelf && isNeighbour;
-//     })
-//   });
-// }
-
 function computeIsles(tiles, rawIsles) {
   const isles = [];
 

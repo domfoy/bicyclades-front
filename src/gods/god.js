@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-
 import * as Pixi from 'pixi.js';
+
+import {withPixiApp} from '../context';
 
 import GodMarkerSpot from './spot';
 
@@ -14,8 +14,8 @@ for (let i = 1; i <= 10; i++) {
 class GodCard extends Component {
   constructor(props) {
     super(props);
-    const {app, id, gods} = this.props;
-    this.god = gods.find(g => g.id === id);
+    const {app, id, god} = this.props;
+    this.god = god;
 
     const godsContainer = app.stage
       .getChildByName('asideContainer')
@@ -46,6 +46,7 @@ class GodCard extends Component {
 
   render() {
     const tokenSize = Math.min(this.contentHeight / 3, this.contentWidth / 10);
+    const {id} = this.props;
 
     return (
       <div>
@@ -53,7 +54,7 @@ class GodCard extends Component {
           <GodMarkerSpot
             key={spot.toString()}
             id={spot}
-            godId={this.god.id}
+            godId={id}
             x={this.padding + (spot - 1) * tokenSize + tokenSize / 2}
             y={this.padding + tokenSize / 2}
             size={tokenSize}
@@ -66,7 +67,7 @@ class GodCard extends Component {
 }
 GodCard.propTypes = {
   app: PropTypes.object.isRequired,
-  gods: PropTypes.array.isRequired,
+  god: PropTypes.object.isRequired,
   height: PropTypes.number.isRequired,
   id: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
@@ -74,9 +75,5 @@ GodCard.propTypes = {
   y: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = state => ({
-  app: state.app,
-  gods: state.gods
-});
 
-export default connect(mapStateToProps)(GodCard);
+export default withPixiApp(GodCard);

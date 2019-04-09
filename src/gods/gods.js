@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-
 import * as Pixi from 'pixi.js';
+
+import {withPixiApp} from '../context';
 
 import GodCard from './god';
 
@@ -25,17 +26,20 @@ class Gods extends Component {
     const {gods, height, width} = this.props;
     return (
       <div>
-        {gods.map(god => (
-          <GodCard
-            key={god.id.toString()}
-            id={god.id}
-            x={0}
-            y={(height / 5) * (god.id - 1)}
-            width={width}
-            height={height / 5}
-          />
-        ))
-        }
+        {gods.map((god, id) => {
+          const godId = id + 1;
+          return (
+            <GodCard
+              god={god}
+              height={height / 5}
+              id={godId}
+              key={godId.toString()}
+              width={width}
+              x={0}
+              y={(height / 5) * (godId - 1)}
+            />
+          );
+        })}
       </div>
     );
   }
@@ -50,8 +54,7 @@ Gods.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  app: state.app,
   gods: state.gods
 });
 
-export default connect(mapStateToProps)(Gods);
+export default connect(mapStateToProps)(withPixiApp(Gods));

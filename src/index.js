@@ -1,16 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
+
 import './index.css';
 
+import {PixiAppProvider, pixiApp} from './context';
 import store from './store';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <PixiAppProvider value={pixiApp}>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </PixiAppProvider>,
   document.getElementById('root')
 );
 

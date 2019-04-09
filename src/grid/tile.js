@@ -1,8 +1,8 @@
 import {Component} from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-
 import * as Pixi from 'pixi.js';
+
+import {withPixiApp} from '../context';
 
 class Tile extends Component {
   componentDidMount() {
@@ -35,8 +35,4 @@ Tile.propTypes = {
   y: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = state => ({
-  app: state.app,
-});
-
-export default connect(mapStateToProps)(Tile);
+export default withPixiApp(Tile);

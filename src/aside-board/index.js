@@ -1,17 +1,16 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-
 import * as Pixi from 'pixi.js';
 
+import {withPixiApp} from '../context';
 import UpperAsideBoard from '../upper-aside-board';
-import Gods from '../god';
+import Gods from '../gods';
 
 class AsideBoard extends Component {
   constructor(props) {
     super(props);
-    const {app} = this.props;
 
+    const {app} = this.props;
     this.padding = 10;
 
     const asideContainer = new Pixi.Container();
@@ -52,12 +51,9 @@ class AsideBoard extends Component {
     );
   }
 }
+
 AsideBoard.propTypes = {
   app: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-  app: state.app
-});
-
-export default connect(mapStateToProps)(AsideBoard);
+export default withPixiApp(AsideBoard);

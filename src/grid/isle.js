@@ -1,8 +1,8 @@
 import {Component} from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-
 import * as Pixi from 'pixi.js';
+
+import {withPixiApp} from '../context';
 
 class Isle extends Component {
   componentDidMount() {
@@ -33,8 +33,4 @@ Isle.propTypes = {
   size: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = state => ({
-  app: state.app,
-});
-
-export default connect(mapStateToProps)(Isle);
+export default withPixiApp(Isle);

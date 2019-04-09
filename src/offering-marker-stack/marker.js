@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 
 import * as Pixi from 'pixi.js';
 
+import {withPixiApp} from '../context';
 import {palette} from '../constants';
 
 class OfferingMarker extends Component {
@@ -18,7 +19,7 @@ class OfferingMarker extends Component {
     } = props;
 
     const marker = new Pixi.Graphics();
-    console.log(x, y);
+
     marker.beginFill(palette[colour]);
     marker.drawCircle(0, 0, 15);
     marker.endFill();
@@ -81,8 +82,7 @@ OfferingMarker.propTypes = {
   y: PropTypes.number.isRequired,
 };
 const mapStateToProps = state => ({
-  app: state.app,
-  turn: state.turn,
+  turn: state.game.turn,
 });
 
-export default connect(mapStateToProps)(OfferingMarker);
+export default connect(mapStateToProps)(withPixiApp(OfferingMarker));

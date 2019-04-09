@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-
 import * as Pixi from 'pixi.js';
 
+import {withPixiApp} from '../context';
 import OfferingMarkerStack from '../offering-marker-stack';
 
 class UpperAsideBoard extends Component {
   constructor(props) {
     super(props);
+
     const {
       app,
       width,
@@ -69,9 +69,6 @@ UpperAsideBoard.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
 };
-const mapStateToProps = state => ({
-  app: state.app
-});
 
 
-export default connect(mapStateToProps)(UpperAsideBoard);
+export default withPixiApp(UpperAsideBoard);

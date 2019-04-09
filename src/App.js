@@ -1,19 +1,18 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 
+import {PixiAppContext} from './context';
 import './App.css';
 import AsideBoard from './aside-board';
 import MainBoard from './main-board';
 
 class App extends Component {
   componentWillUnmount() {
-    const {app} = this.props;
+    const app = this.context;
     app.stop();
   }
 
   initGameCanvas = (rawDiv) => {
-    const {app} = this.props;
+    const app = this.context;
     this.gameCanvas = rawDiv;
     this.gameCanvas.appendChild(app.view);
     app.renderer.backgroundColor = 0x014055;
@@ -22,7 +21,7 @@ class App extends Component {
   }
 
   render() {
-    const {app} = this.props;
+    const app = this.context;
     return (
       <div className="App" ref={this.initGameCanvas}>
         <AsideBoard
@@ -42,12 +41,6 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
-  app: PropTypes.object.isRequired
-};
+App.contextType = PixiAppContext;
 
-const mapStateToProps = state => ({
-  app: state.app
-});
-
-export default connect(mapStateToProps)(App);
+export default App;
