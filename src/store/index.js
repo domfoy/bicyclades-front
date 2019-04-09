@@ -1,6 +1,7 @@
-import {createStore} from 'redux';
+import {createStore, applyMiddleware, compose} from 'redux';
 import * as Pixi from 'pixi.js';
 
+import createSocketMiddleware from '../socket';
 
 import {
   COLOUR,
@@ -8,7 +9,7 @@ import {
   MIN_HEIGHT,
   MIN_WIDTH,
   TURN_STEP,
-} from './constants';
+} from '../constants';
 import reducers from './reducers';
 
 const initialState = {
@@ -125,8 +126,10 @@ const initialState = {
   ]
 };
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
+
 export default createStore(
   reducers,
   initialState,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() // eslint-disable-line
+  composeEnhancers(applyMiddleware(createSocketMiddleware()))
 );
