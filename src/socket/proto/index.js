@@ -3,7 +3,7 @@ import protobuf from 'protobufjs'; // eslint-disable-line import/no-extraneous-d
 
 const root = protobuf.Root.fromJSON(require('./bundle.json'));
 
-const Action = root.lookupType('bicyclade.Action');
+const Action = root.lookupType('proto.PContainer');
 
 export function parseProtoMessage(data) {
   let buffer;

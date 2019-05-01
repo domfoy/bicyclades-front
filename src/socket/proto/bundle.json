@@ -1,42 +1,7 @@
 {
-  "options": {
-    "objc_class_prefix": "HLW"
-  },
   "nested": {
-    "bicyclade": {
+    "proto": {
       "nested": {
-        "BycServer": {
-          "methods": {
-            "Connect": {
-              "requestType": "Connection",
-              "responseType": "Game"
-            },
-            "ExecuteAction": {
-              "requestType": "ActionList",
-              "responseType": "Rstatus"
-            }
-          }
-        },
-        "ClientServer": {
-          "methods": {
-            "Stream": {
-              "requestType": "Action",
-              "responseType": "Rstatus"
-            }
-          }
-        },
-        "Connection": {
-          "fields": {
-            "ip": {
-              "type": "string",
-              "id": 1
-            },
-            "port": {
-              "type": "string",
-              "id": 2
-            }
-          }
-        },
         "Action": {
           "fields": {
             "message": {
@@ -49,41 +14,165 @@
             }
           }
         },
-        "ActionList": {
-          "fields": {
-            "action": {
-              "rule": "repeated",
-              "type": "Action",
-              "id": 1
-            }
+        "PGlobalActionType": {
+          "values": {
+            "CLIENT_ACTION": 0,
+            "PLAYER_ACTION": 1,
+            "SERVER_ACTION": 2,
+            "GAME_ACTION": 3
           }
         },
-        "Rstatus": {
+        "PContainer": {
           "fields": {
-            "status": {
-              "type": "Status",
+            "globalAction": {
+              "type": "PGlobalActionType",
               "id": 1
-            }
-          },
-          "nested": {
-            "Status": {
-              "values": {
-                "OK": 0,
-                "KO": 1
-              }
+            },
+            "clientAction": {
+              "type": "PClientAction",
+              "id": 2
+            },
+            "playerAction": {
+              "type": "PPlayerAction",
+              "id": 3
+            },
+            "serverAction": {
+              "type": "PServerAction",
+              "id": 4
+            },
+            "gameAction": {
+              "type": "PGameAction",
+              "id": 5
             }
           }
+        }
+      }
+    },
+    "PAction_UPDATE_COINS": {
+      "fields": {
+        "value": {
+          "type": "int32",
+          "id": 1
+        }
+      }
+    },
+    "PGameActionType": {
+      "values": {
+        "UPDATE_COINS": 0
+      }
+    },
+    "PGameAction": {
+      "fields": {
+        "type": {
+          "type": "PGameActionType",
+          "id": 1
         },
-        "Game": {
-          "fields": {
-            "todo": {
-              "type": "string",
-              "id": 1
-            }
-          }
+        "updateCoins": {
+          "type": "PAction_UPDATE_COINS",
+          "id": 2
+        }
+      }
+    },
+    "PAction_CHAT": {
+      "fields": {
+        "message": {
+          "type": "string",
+          "id": 2
+        }
+      }
+    },
+    "PClientActionType": {
+      "values": {
+        "JOIN_GAME": 0,
+        "QUIT_GAME": 1,
+        "ADD_NAME": 2,
+        "CHAT": 3
+      }
+    },
+    "PClientAction": {
+      "fields": {
+        "type": {
+          "type": "PClientActionType",
+          "id": 1
         },
-        "Player": {
-          "fields": {}
+        "name": {
+          "type": "string",
+          "id": 2
+        },
+        "actionChat": {
+          "type": "PAction_CHAT",
+          "id": 3
+        }
+      }
+    },
+    "PAction_START_GAME": {
+      "fields": {
+        "playerList": {
+          "rule": "repeated",
+          "type": "PPlayer",
+          "id": 1
+        }
+      }
+    },
+    "PServerActionType": {
+      "values": {
+        "START_GAME": 0
+      }
+    },
+    "PServerAction": {
+      "fields": {
+        "type": {
+          "type": "PServerActionType",
+          "id": 1
+        },
+        "actionStart": {
+          "type": "PAction_START_GAME",
+          "id": 2
+        }
+      }
+    },
+    "PColour": {
+      "values": {
+        "BLACK": 0,
+        "BLUE": 1,
+        "PURPLE": 2,
+        "RED": 3,
+        "YELLOW": 4
+      }
+    },
+    "PPlayer": {
+      "fields": {
+        "name": {
+          "type": "string",
+          "id": 1
+        },
+        "colour": {
+          "type": "PColour",
+          "id": 2
+        }
+      }
+    },
+    "PAction_PUT_OFFERING_MARKER": {
+      "fields": {}
+    },
+    "PPlayerActionType": {
+      "values": {
+        "PUT_OFFERING_MARKER": 0
+      }
+    },
+    "PPlayerAction": {
+      "fields": {
+        "type": {
+          "type": "PPlayerActionType",
+          "id": 1
+        },
+        "name": {
+          "type": "string",
+          "id": 2
+        },
+        "actionPutOffMarker": {
+          "type": "PAction_PUT_OFFERING_MARKER",
+          "id": 3
         }
       }
     }
