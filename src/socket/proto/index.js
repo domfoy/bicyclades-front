@@ -25,5 +25,5 @@ export function parseProtoMessage(data) {
 }
 
 export function createProtoMessage(payload) {
-  return Action.encode(Action.formObject(payload)).finish();
+  return Action.encode(Action.fromObject(payload)).finish();
 }

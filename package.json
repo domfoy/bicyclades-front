@@ -9,6 +9,7 @@
     "prop-types": "^15.7.2",
     "protobufjs": "^6.8.8",
     "react": "^16.8.4",
+    "react-chat-window": "^1.2.1",
     "react-dom": "^16.8.4",
     "react-redux": "^6.0.1",
     "react-scripts": "2.1.8",
@@ -19,6 +20,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "bundle": "pbjs -t json ~/dev/bicyclade/src/protos/*.proto > src/socket/proto/bundle.json",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

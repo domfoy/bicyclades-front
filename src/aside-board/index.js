@@ -5,18 +5,17 @@ import * as Pixi from 'pixi.js';
 import {withPixiApp} from '../context';
 import UpperAsideBoard from '../upper-aside-board';
 import Gods from '../gods';
+import {Chat} from '../chat';
 
 class AsideBoard extends Component {
   constructor(props) {
     super(props);
 
-    const {app} = this.props;
+    const {app, height, width} = this.props;
     this.padding = 10;
 
     const asideContainer = new Pixi.Container();
     asideContainer.name = 'asideContainer';
-    const width = app.screen.width / 3;
-    const height = app.screen.height;
 
     this.contentWidth = width - 2 * this.padding;
     this.contentHeight = height - 2 * this.padding;
@@ -33,11 +32,13 @@ class AsideBoard extends Component {
   }
 
   render() {
+    const {x, y} = this.props;
+
     return (
       <div>
         <UpperAsideBoard
-          x={this.padding}
-          y={this.padding}
+          x={x + this.padding}
+          y={y + this.padding}
           width={this.contentWidth}
           height={250}
         />
@@ -47,13 +48,26 @@ class AsideBoard extends Component {
           width={this.contentWidth}
           height={this.contentHeight - 250}
         />
+        <div style={{
+          position: 'absolute',
+          bottom: 0
+        }}
+        >
+          <Chat
+
+          />
+        </div>
       </div>
     );
   }
 }
 
 AsideBoard.propTypes = {
-  app: PropTypes.object.isRequired
+  app: PropTypes.object.isRequired,
+  height: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired
 };
 
 export default withPixiApp(AsideBoard);

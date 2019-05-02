@@ -28,7 +28,7 @@ class App extends Component {
           x={0}
           y={0}
           width={app.screen.width / 3}
-          height={app.screen.height}
+          height={app.screen.height - 100}
         />
         <MainBoard
           x={app.screen.width / 3}
