@@ -1,25 +1,18 @@
 import _ from 'lodash';
 
-import {createProtoMessage} from './proto';
 import parseMessage from './in';
-import {sendMessage, handleOpen} from './out';
+import {sendMessage, handleOpen, sendToServerCreator} from './out';
+import initSocketContext from './init-context';
+
 
 export default (url = 'ws://localhost:9002/ws') => (storeApi) => {
+  initSocketContext();
+
   const socket = new WebSocket(url);
 
   socket.binaryType = 'arraybuffer';
 
-  function sendToServer(payload) {
-    if (socket.readyState === WebSocket.OPEN) {
-      console.log('about to send data to server');
-      const buffer = createProtoMessage(payload);
-
-      socket.send(buffer);
-      console.log('message sent to server');
-    } else {
-      console.log('could not send message');
-    }
-  }
+  const sendToServer = sendToServerCreator(socket);
 
   socket.onopen = () => {
     console.log('Connected');

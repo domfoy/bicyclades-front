@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 import {actions as chatActions} from '../chat';
+import {actions as gameActions} from '../game';
 import {parseProtoMessage} from './proto';
 
 function parseClientAction(state, action) {
@@ -19,6 +20,18 @@ function parseClientAction(state, action) {
   }
 }
 
+function parseServerAction(state, action) {
+  console.log(JSON.stringify(action));
+  switch (_.get(action, 'type')) {
+    case 'START_GAME':
+      return gameActions.start({
+        playerList: action.playerList
+      });
+    default:
+      return undefined;
+  }
+}
+
 export function parsePayload(state, data) {
   const obj = parseProtoMessage(data);
 
@@ -29,6 +42,8 @@ export function parsePayload(state, data) {
   switch (obj.globalAction) {
     case 'CLIENT_ACTION':
       return parseClientAction(state, _.get(obj, 'clientAction'));
+    case 'SERVER_ACTION':
+      return parseServerAction(state, _.get(obj, 'serverAction'));
     default:
       return undefined;
   }
